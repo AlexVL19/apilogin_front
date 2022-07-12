@@ -8,7 +8,15 @@
                 :items="usuarios"
                 disable-pagination
                 :hide-default-footer="true"
-            ></v-data-table>
+                :loading="carga"
+                loading-text="Cargando..."
+            >
+            
+            <template v-slot:[`item.action`] = "{item}">
+                <v-icon small color="indigo lighten-1" class="mr-4" @click="editUsers(item.id)">mdi-pencil</v-icon>
+                <v-icon small color="red lighten-1" class="mr-4" @click="deleteUsers(item.id)">mdi-trash-can</v-icon>
+            </template>
+            </v-data-table>
         </v-card>
     </v-col> 
 </v-row> 
@@ -26,13 +34,17 @@ export default {
             headers: [
                 {text: "Nombre", sortable: "false", value: "name"},
                 {text: "Correo", sortable: "false", value: "email"},
-                {text: "Rol", sortable: "false", value: "role"}
+                {text: "Rol", sortable: "false", value: "role"},
+                {text: "Acciones", sortable: "false", value: "action"}
             ],
+            carga: false
+            
         };
     },
     methods: {
-        getUsers() {
-            UserDataService.getAll()
+        async getUsers() {
+            this.carga = true;
+            await UserDataService.getAll()
             .then((response) => {
                 console.log(response.data)
                 this.usuarios = response.data;
@@ -40,10 +52,11 @@ export default {
             .catch((error) => {
                 console.log(error);
             });
+            this.carga = false;
         },
 
         editUsers(id) {
-            this.$router.push({ name: "userDetails", params: {id : id} })
+            this.$router.push({ name: "editar", params: {id : id} })
         },
 
         deleteUsers(id) {
