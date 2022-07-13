@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store'
 import HomeView from '../views/HomeView.vue'
-import createUsers from '@/views/createUsers.vue'
 import UsersList from '@/modules/Usuarios/components/UsersList.vue'
 import AddUser from '@/modules/Usuarios/components/AddUser.vue'
 import EditUser from '@/modules/Usuarios/components/EditUser.vue'
@@ -16,56 +16,70 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView,
-    meta: { guestOnly: true}
-  },
-
-  {
-    path: '/createUsers',
-    name: 'createUsers',
-    component: createUsers,
-    meta: { authOnly: true}
+    meta: {
+      middleware: "guest",
+      title: `Home`
+    }
   },
 
   {
     path: '/users',
     name: 'usuarios',
     component: UsersList,
-    meta: { guestOnly: true}
+    meta: {
+      middleware: "guest",
+      title: `Usuarios`
+    }
   },
 
   {
     path: '/addUser',
     name: 'añadir',
     component: AddUser,
-    meta: { authOnly: true}
+    meta: {
+      middleware: "auth",
+      title: `Agregar`
+    }
   },
 
   {
     path: '/users/:id',
     name: 'editar',
     component: EditUser,
-    meta: { authOnly: true}
+    meta: {
+      middleware: "auth",
+      title: `Editar`
+    }
   },
 
   {
     path: '/login',
     name: 'iniciar-sesión',
     component: Login,
-    meta: { guestOnly: true}
+    meta: {
+      middleware: "guest",
+      title: `Login`
+    }
   },
 
   {
     path: '/register',
     name: 'registrarse',
     component: Registro,
-    meta: { guestOnly: true}
+    meta: {
+      middleware: "guest",
+      title: `Registrarse`
+    }
   },
 
   {
     path: '/dashboard',
     name: 'dashboard',
     component: Dashboard,
-    meta: { authOnly: true}
+    meta: {
+      middleware: "auth",
+      title: `Dashboard`
+    }
   }
 ]
 
@@ -75,38 +89,25 @@ const router = new VueRouter({
   routes
 })
 
-function estaLogueado() {
-  return localStorage.getItem("auth");
-}
+/*router.beforeEach((to, from, next) => {
+  document.title = `${to.meta.title}`
 
-router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.authOnly)) {
-    if(!estaLogueado()) {
-      next({
-        path: "/login",
-        query:{ redirect: to.fullPath }
-      });
+  if (to.meta.middleware == "guest") {
+    if (store.state.auth.token == undefined || store.state.auth.token == "") {
+      next({name: "iniciar-sesión"})
     }
-    else {
-      next();
-    }
-  }
 
-  else if (to.matched.some(record => record.meta.guestOnly)) {
-    if(estaLogueado()) {
-      next({
-        path: "/dashboard",
-        query: { redirect: to.fullPath }
-      });
-    }
-    else {
-      next();
-    }
+    next({name: "dashboard"})
   }
 
   else {
-    next();
+    if (store.state.auth.token == undefined || store.state.auth.token == "") {
+      next({name: "login"})
+    }
+    else {
+      next()
+    }
   }
-});
+})*/
 
 export default router
