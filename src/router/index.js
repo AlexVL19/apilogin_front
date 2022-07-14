@@ -17,7 +17,7 @@ const routes = [
     name: 'home',
     component: HomeView,
     meta: {
-      middleware: "guest",
+      guestOnly: true,
       title: `Home`
     }
   },
@@ -27,7 +27,7 @@ const routes = [
     name: 'usuarios',
     component: UsersList,
     meta: {
-      middleware: "guest",
+      guestOnly: true,
       title: `Usuarios`
     }
   },
@@ -37,7 +37,7 @@ const routes = [
     name: 'añadir',
     component: AddUser,
     meta: {
-      middleware: "auth",
+      authOnly: true,
       title: `Agregar`
     }
   },
@@ -47,7 +47,7 @@ const routes = [
     name: 'editar',
     component: EditUser,
     meta: {
-      middleware: "auth",
+      authOnly: true,
       title: `Editar`
     }
   },
@@ -57,7 +57,7 @@ const routes = [
     name: 'iniciar-sesión',
     component: Login,
     meta: {
-      middleware: "guest",
+      guestOnly: true,
       title: `Login`
     }
   },
@@ -67,7 +67,7 @@ const routes = [
     name: 'registrarse',
     component: Registro,
     meta: {
-      middleware: "guest",
+      guestOnly: true,
       title: `Registrarse`
     }
   },
@@ -77,7 +77,7 @@ const routes = [
     name: 'dashboard',
     component: Dashboard,
     meta: {
-      middleware: "auth",
+      authOnly: true,
       title: `Dashboard`
     }
   }
@@ -89,25 +89,34 @@ const router = new VueRouter({
   routes
 })
 
-/*router.beforeEach((to, from, next) => {
-  document.title = `${to.meta.title}`
+function estaLogueado() {
+  return store.state.token;
+}
 
-  if (to.meta.middleware == "guest") {
-    if (store.state.auth.token == undefined || store.state.auth.token == "") {
-      next({name: "iniciar-sesión"})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.authOnly)) {
+    if (!estaLogueado()) {
+      next({
+        path: "/login",
+        query: { redirect: to.fullPath }
+      });
+      
     }
-
-    next({name: "dashboard"})
+  
+    else {
+      next();
+    }
   }
 
-  else {
-    if (store.state.auth.token == undefined || store.state.auth.token == "") {
-      next({name: "login"})
+  else if (to.matched.some(record => record.meta.guestOnly)) {
+    if (estaLogueado()) {
+      next();
     }
     else {
-      next()
+      next();
     }
   }
-})*/
+});
 
 export default router

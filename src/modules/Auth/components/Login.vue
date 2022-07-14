@@ -1,7 +1,7 @@
 <template>
 <v-container fluid>
   <v-row align="center" class="justify-center px-3 mx-auto mt-4">
-    <v-col cols="4">
+    <v-col cols="12" lg="8" sm="12">
       <v-card>
         <v-card-title class="justify-center">Iniciar sesión</v-card-title>
         <v-card-text>
@@ -60,8 +60,8 @@
             this.$store.commit('SET_USUARIO', response.data.user)
             this.$store.commit('SET_AUTHENTICATED', true)
             this.$store.commit('SET_TOKEN', response.data.token)
-                
-            this.$router.push({name: 'dashboard'})
+
+            this.$router.push({name: "dashboard"});
           });
       },
     }

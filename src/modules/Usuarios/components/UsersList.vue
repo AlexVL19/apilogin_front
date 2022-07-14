@@ -13,8 +13,7 @@
             >
             
             <template v-slot:[`item.action`] = "{item}">
-                <v-icon small color="indigo lighten-1" class="mr-4" @click="editUsers(item.id)">mdi-pencil</v-icon>
-                <v-icon small color="red lighten-1" class="mr-4" @click="deleteUsers(item.id)">mdi-trash-can</v-icon>
+                <v-icon small color="indigo lighten-1" @click="editUsers(item.id)">mdi-account-edit</v-icon>
             </template>
             </v-data-table>
         </v-card>
@@ -59,15 +58,6 @@ export default {
             this.$router.push({ name: "editar", params: {id : id} })
         },
 
-        deleteUsers(id) {
-            UserDataService.delete(id)
-            .then(() => {
-                this.getUsers();
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-        }
     },
     created() {
         this.getUsers();
