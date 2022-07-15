@@ -63,7 +63,7 @@
         
           <v-list-item to="/dashboard">
             <v-list-item-icon>
-              <v-icon>mdi-home</v-icon>
+              <v-icon>mdi-post</v-icon>
             </v-list-item-icon>
             <v-list-item-title>Dashboard</v-list-item-title>
           </v-list-item>
@@ -77,14 +77,14 @@
 
           <v-list-item to="/addUser">
             <v-list-item-icon>
-              <v-icon>mdi-account-plus</v-icon>
+              <v-icon>mdi-plus-thick</v-icon>
             </v-list-item-icon>
             <v-list-item-title>Añadir usuario</v-list-item-title>
           </v-list-item>
 
           <v-list-item @click="logout">
             <v-list-item-icon>
-              <v-icon>mdi-shield-key</v-icon>
+              <v-icon>mdi-logout</v-icon>
             </v-list-item-icon>
             <v-list-item-title>Cerrar sesión</v-list-item-title>
           </v-list-item>
@@ -94,43 +94,32 @@
       </v-navigation-drawer>
     </div>
 
-    <!-- <v-app-bar v-if="!bar1" app dark>
-      <div class="d-flex align-center mr-2">
-        CRUD App
-      </div>
-      <v-btn to="/" text>
-        <v-icon small dark class="mr-1">mdi-home </v-icon>Inicio
-      </v-btn>
-      <v-btn to="/users" text>
-        <v-icon small dark class="mr-1">mdi-account </v-icon>Usuarios
-      </v-btn>
-      <v-btn to="/register" text>
-        <v-icon small dark class="mr-1">mdi-account-plus</v-icon>Registrarse
-      </v-btn>
-      <v-btn to="/login" text>
-        <v-icon small dark class="mr-1">mdi-shield-key</v-icon>Iniciar sesión
-      </v-btn>
-    </v-app-bar>
-
-    <v-app-bar v-else app dark>
-      <div class="d-flex align-center mr-2">
-        CRUD App
-      </div>
-      <v-btn to="/dashboard" text>
-        <v-icon small dark class="mr-1">mdi-post </v-icon>Dashboard
-      </v-btn>
-      <v-btn to="/users" text>
-        <v-icon small dark class="mr-1">mdi-account </v-icon>Usuarios
-      </v-btn>
-      <v-btn to="/addUser" text>
-        <v-icon small dark class="mr-1">mdi-plus-circle</v-icon>Añadir
-      </v-btn>
-
-    </v-app-bar> -->
-
-    <v-main>
+    <v-main class="mb-5">
       <router-view />
     </v-main>
+
+      <v-footer padless class="mt-5">
+        <v-card flat tile dark width="100%" class="text-center">
+          <v-card-text>
+            <v-btn class="mx-4" icon @click="changeToMail">
+              <v-icon size="24px">mdi-email</v-icon>
+            </v-btn>
+
+            <v-btn class="mx-4" icon @click="changeToPhone">
+              <v-icon size="24px">mdi-phone</v-icon>
+            </v-btn>
+
+            <p align="center" class="mt-3">{{ contacts }}</p>
+
+          </v-card-text>
+
+          <v-divider></v-divider>
+
+          <v-card-text class="white--text">
+            {{ new Date().getFullYear() }} - <strong>Alexis Valencia</strong>
+          </v-card-text>
+        </v-card>
+      </v-footer>
   </v-app>
 </template>
 
@@ -146,25 +135,40 @@ export default {
 
     drawer: false,
     group: null,
+
+    contacts: ""
   }),
 
   beforeUpdate() {
     if (store.state.token) {
       this.bar1 = true
     }
+    else {
+      this.bar1 = false
+    }
   },
 
   methods: {
-    async logout() {
-      await http.salir()
+    logout() {
+      http.salir()
       .then(() => {
         this.$store.commit('SET_USUARIO', {})
         this.$store.commit('SET_AUTHENTICATED', false)
         this.$store.commit('SET_TOKEN', "")
+
+        this.$router.push({ name: "home" })
       })
       .catch((error) => {
         console.log(error)
-      })
+      });
+    },
+
+    changeToMail() {
+      this.contacts = "avalencia190@misena.edu.co"
+    },
+
+    changeToPhone() {
+      this.contacts = "(+57) 305 3841021"
     }
   },
 };

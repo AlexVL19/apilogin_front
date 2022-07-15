@@ -9,14 +9,13 @@ console.log(token)
 const api = axios.create({
     baseURL: "http://localhost:8000/api",
     headers: {
-        "Content-type": "application/json",
-        "Authorization": `Bearer ${token}`
+        "Authorization": `Bearer ${token} `
     }
 });
 
 api.interceptors.request.use (
     config => {
-        config.headers.Authorization = `Bearer ${store.state.token}`;
+        config.headers.Authorization = `Bearer ${store.state.token} `;
 
         return config;
     },

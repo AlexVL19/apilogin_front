@@ -14,6 +14,7 @@
             </v-text-field>
             
             <v-text-field
+              type="password"
               v-model="formulario.password"
               label="Contraseña"
               required
