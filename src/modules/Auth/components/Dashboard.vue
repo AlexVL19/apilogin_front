@@ -7,7 +7,7 @@
         <v-card-title class="justify-center">¡Bienvenid@, {{$store.state.usuario.name}}!</v-card-title>
           <v-card-text class="justify-center d-flex">
 
-            <v-col cols="8" class="justify-center d-flex">
+            <v-col cols="10" class="justify-center d-flex">
               <p align="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent consectetur ligula at tincidunt fringilla. Ut laoreet at ipsum efficitur laoreet. Nulla efficitur viverra diam vitae auctor. Pellentesque tempor elit id tellus feugiat tristique. Aliquam ac magna vel risus bibendum fringilla sit amet eget massa. In elementum sem sit amet massa interdum, facilisis congue nibh imperdiet. Aliquam fringilla augue vel dolor dapibus, rhoncus lobortis leo porta. Aenean cursus, odio eu iaculis feugiat, lorem nunc ornare mi, molestie commodo enim orci eu dolor. Proin aliquet dapibus ligula, vel vestibulum diam laoreet ac. Nam scelerisque ultrices interdum.</p>
             </v-col>
           </v-card-text>

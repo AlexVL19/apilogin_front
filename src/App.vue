@@ -98,7 +98,7 @@
       <router-view />
     </v-main>
 
-      <v-footer padless class="mt-5">
+      <v-footer padless class="mt-5 p-5">
         <v-card flat tile dark width="100%" class="text-center">
           <v-card-text>
             <v-btn class="mx-4" icon @click="changeToMail">

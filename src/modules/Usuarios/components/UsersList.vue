@@ -1,6 +1,6 @@
 <template>
-<v-row align="center" class="list px-3 mx-auto mt-2">
-    <v-col cols="12"> 
+<v-row align="center" class="list px-3 mx-auto mt-2 justify-center">
+    <v-col cols="12" lg="8" sm="12"> 
         <v-card class="mx-auto" tile>
             <v-card-title class="justify-center">Usuarios</v-card-title>
             <v-data-table
