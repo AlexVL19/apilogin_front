@@ -57,8 +57,12 @@
 
     methods: {
       añadirUsuario() {
+
+        //Hace una petición en Axios la cual consume un servicio del lado de la autenticación
         http.registro(this.formulario)
         .then((response) => {
+
+          //Se asigna el ID de la petición, se crea el registro y se redirige al login
           this.formulario.id = response.data.id;
           console.log(response.data)
           this.$router.push({ name: "iniciar-sesión" });

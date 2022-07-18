@@ -2,6 +2,8 @@
 <v-container fluid>
   <v-row align="center" class="justify-center px-3 mx-auto mt-4">
     <v-col cols="12">
+
+      <!-- Carta que contendrá el diseño del dashboard -->
       <v-card>
         <div id="gradiente2"></div>
         <v-card-title class="justify-center">¡Bienvenid@, {{$store.state.usuario.name}}!</v-card-title>
@@ -12,6 +14,7 @@
             </v-col>
           </v-card-text>
       </v-card>
+
     </v-col>
   </v-row>
 </v-container>
@@ -28,7 +31,8 @@
         nombreusuario: ""
       }
     },
-
+    
+    //Parte del ciclo de vida que refrescará el nombre de quien se autentique cada vez que se renderice la página
     beforeUpdate() {
       this.nombreusuario = store.state.usuario.name
     },
@@ -37,6 +41,7 @@
 
 <style>
 
+/* Estilo del gradiente que se observa al inicio de la página */
 #gradiente2 {
   background: rgb(1,110,54);
   background: linear-gradient(21deg, rgba(1,110,54,1) 0%, rgba(47,205,92,1) 35%, rgba(165,248,255,1) 100%);

@@ -2,6 +2,9 @@
 <v-container fluid>
   <v-row align="center" class="justify-center px-3 mx-auto mt-4">
     <v-col cols="12">
+
+      <!--Carta que contendrá el diseño de la página principal-->
+
       <v-card>
         <div id="gradiente"></div>
         <v-card-title class="justify-center">¡Bienvenid@ a CRUD App!</v-card-title>
@@ -12,6 +15,7 @@
             </v-col>
           </v-card-text>
       </v-card>
+      
     </v-col>
   </v-row>
 </v-container>
@@ -26,6 +30,7 @@
 
 <style>
 
+/* Estilo del gradiente que se ve al inicio de la página */
 #gradiente {
   background: rgb(110,37,1);
   background: linear-gradient(21deg, rgba(110,37,1,1) 0%, rgba(205,97,47,1) 35%, rgba(204,165,255,1) 100%);

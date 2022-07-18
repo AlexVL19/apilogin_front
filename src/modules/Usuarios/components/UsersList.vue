@@ -2,10 +2,22 @@
 <v-row align="center" class="list px-3 mx-auto mt-2 justify-center">
     <v-col cols="12" lg="8" sm="12"> 
         <v-card class="mx-auto" tile>
-            <v-card-title class="justify-center">Usuarios</v-card-title>
+            <v-card-title class="justify-center">
+                Usuarios
+                <v-spacer></v-spacer>
+                <v-text-field
+                    v-model="search"
+                    append-icon="mdi-magnify"
+                    label="Buscar"
+                    single-line
+                    hide-details
+                >
+                </v-text-field>
+            </v-card-title>
             <v-data-table
                 :headers="headers"
                 :items="usuarios"
+                :search="search"
                 disable-pagination
                 :hide-default-footer="true"
                 :loading="carga"
@@ -29,12 +41,13 @@ export default {
     name: "UsersList",
     data() {
         return {
+            search: '',
             usuarios: [],
             headers: [
                 {text: "Nombre", sortable: "false", value: "name"},
-                {text: "Correo", sortable: "false", value: "email"},
-                {text: "Rol", sortable: "false", value: "role"},
-                {text: "Acciones", sortable: "false", value: "action"}
+                {text: "Correo", sortable: "false", filterable: "false", value: "email"},
+                {text: "Rol", sortable: "false", filterable: "false", value: "role"},
+                {text: "Acciones", sortable: "false", filterable: "false", value: "action"}
             ],
             carga: false
             
