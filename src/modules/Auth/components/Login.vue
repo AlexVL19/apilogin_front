@@ -31,11 +31,10 @@
             </v-btn>
           </v-row>
 
-          <div id="error" v-if="error" class="justify-center red lighten-3 d-flex">
-            <div class="p1">
-              <v-icon small color="black" class="mr-1">mdi-alert-circle</v-icon> Credenciales incorectas, inténtalo de nuevo.
-            </div>
-          </div>
+          <v-alert id="error" v-if="error" color="red" dark border="bottom" class="mt-5">
+              <v-icon small dark class="mr-1">mdi-alert</v-icon> Credenciales incorrectas, intenta de nuevo.
+          </v-alert>
+          
         </v-card-text>
       </v-card>
   </v-col>
@@ -92,6 +91,6 @@
 <style>
 
 #error {
-  height: 50px;
+  text-align: center;
 }
 </style>

@@ -22,13 +22,75 @@
                 required
             ></v-text-field>
 
-            <v-btn color="red lighten-1" class="mr-2" @click="borrarUsuario">
-                <v-icon small dark class="mr-1">mdi-trash-can</v-icon> Eliminar
-            </v-btn>
+            <v-dialog
+                v-model="dialog"
+                width="500"
+            >
 
-            <v-btn color="blue lighten-2" class="mr-2" @click="actualizarUsuario">
-                <v-icon small dark class="mr-1">mdi-update</v-icon> Actualizar
-            </v-btn>
+            <template v-slot:activator="{ on, attrs }">
+                <v-btn color="red lighten-2" v-bind="attrs" v-on="on" class="mr-2">
+                    <v-icon small class="mr-1">mdi-trash-can</v-icon> Eliminar
+                </v-btn>
+            </template>
+
+            <v-card>
+                <v-card-title class="text-h5">
+                    Atención
+                </v-card-title>
+
+                <v-card-text>
+                    ¿Seguro/a que desea eliminar este registro?
+                </v-card-text>
+                <v-divider></v-divider>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="primary"
+                        text
+                        @click="borrarUsuario()"
+                    >
+                    <v-icon small class="mr-1">mdi-check</v-icon> Sí
+                    </v-btn>
+                </v-card-actions>
+
+            </v-card>
+
+            </v-dialog>
+
+            <v-dialog
+                v-model="dialog2"
+                width="500"
+            >
+
+            <template v-slot:activator="{ on, attrs }">
+                <v-btn color="blue lighten-2" v-bind="attrs" v-on="on" class="mr-2">
+                    <v-icon small class="mr-1">mdi-update</v-icon> Actualizar
+                </v-btn>
+            </template>
+
+            <v-card>
+                <v-card-title class="text-h5">
+                    Atención
+                </v-card-title>
+
+                <v-card-text>
+                    ¿Seguro/a que desea actualizar este registro?
+                </v-card-text>
+                <v-divider></v-divider>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="primary"
+                        text
+                        @click="actualizarUsuario()"
+                    >
+                    <v-icon small class="mr-1">mdi-check</v-icon> Sí
+                    </v-btn>
+                </v-card-actions>
+
+            </v-card>
+
+            </v-dialog>
         </v-form>
     </div>
     <div v-else class="d-flex align-center justify-center mt-5">
@@ -55,6 +117,8 @@ export default {
     name: "usuario-actualizar",
     data() {
         return {
+            dialog: false,
+            dialog2: false,
             usuarioActual: null,
         };
     },
@@ -76,6 +140,7 @@ export default {
         },
 
         actualizarUsuario() {
+            this.dialog2 = false
             UserDataService.update(this.usuarioActual.id, this.usuarioActual)
             .then((response) => {
                 console.log(response.data);
@@ -88,6 +153,7 @@ export default {
         },
 
         borrarUsuario() {
+            this.dialog = false
             UserDataService.delete(this.usuarioActual.id)
             .then((response) => {
                 console.log(response.data);
